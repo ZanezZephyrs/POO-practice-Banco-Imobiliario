@@ -1,3 +1,4 @@
+package slots;
 
 public class Propriedade extends Slot{
 	private String nome;/*nome da propriedade*/

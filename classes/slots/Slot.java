@@ -1,3 +1,4 @@
+package slots;
 
 public class Slot {
 	private int ID;/*id da posição(1~40)*/

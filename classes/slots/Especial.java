@@ -1,3 +1,4 @@
+package slots;
 
 public class Especial extends Slot{
 	

@@ -1,4 +1,4 @@
-
+package slots;
 public class Sorte extends Slot {
 	
 	

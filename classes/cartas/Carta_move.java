@@ -6,6 +6,7 @@ public class Carta_move extends Carta {
 		super(descricao, nome);
 		this.destino=dest;
 	}
+	
 	public void aplicar_efeito(Jogador player) {
 		/*mover posição do jogador até o destino,
 		 * destino pode contem o id do slot

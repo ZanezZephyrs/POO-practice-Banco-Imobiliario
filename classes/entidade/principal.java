@@ -59,7 +59,9 @@ public class principal {
     private void setNotas_1(int notas_1) {
         this.notas_1 = notas_1;
     }
-    public void Pagamento
+    public void Pagamento() {
+    	
+    }
     /**
      * @param args the command line arguments
      */

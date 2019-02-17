@@ -1,22 +1,26 @@
 package slots;
+import entidade.principal;
 
 public class Propriedade extends Slot{
-	private String nome;/*nome da propriedade*/
-	private int[] aluguel;/*vetor com os alugueis
-							o index do aluguel atual é o numero de casas,
+	
+	private int[] aluguel;/*vetor com os alugueis o index do aluguel atual é o numero de casas,
 							i.e sem casas, aluguel[0], hotel, aluguel[5]*/
+	
 	private int n_casas;/*n_casas na propriedade*/
-	public Propriedade(int id, int[] valores, String name, int casas) {
-		super(id);
+	
+	private principal dono;/*dono da propriedade, antes da compra por jogador, o banco é dono*/
+	
+	private int valor_compra;/*valor para comprar do banco*/
+	
+	private int valor_hipoteca;/*valor da hipoteca*/
+	
+	public Propriedade(int id, int[] valores, String name, int casas, principal dono, int compra, int hipoteca) {
+		super(id, name);
 		this.aluguel=valores;
-		this.nome=name;
 		this.n_casas=casas;
-	}
-	public void SetNome(String nome) {
-		this.nome=nome;
-	}
-	public String GetNome() {
-		return this.nome;
+		this.dono=dono;
+		this.valor_compra=compra;
+		this.valor_hipoteca=hipoteca;
 	}
 	public void SetAlguel(int[] aluguel) {
 		this.aluguel=aluguel;
@@ -30,9 +34,8 @@ public class Propriedade extends Slot{
 	public int GetN_Casas() {
 		return this.n_casas;
 	}
-	public String toString() {
+	public String toString() {/*adicionar resto das informações*/
 		String out=super.toString();
-		out+="nome:"+this.nome+"\n";
 		out+="Numero de casas:"+this.n_casas+"\n";
 		out+="aluguel atual"+ this.aluguel[this.n_casas]+"\n";
 		return out;

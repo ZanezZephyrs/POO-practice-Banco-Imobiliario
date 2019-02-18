@@ -12,3 +12,6 @@ package entidade;
 public class Banco {
     
 }
+
+public Banco(){
+}

@@ -11,6 +11,11 @@ package entidade;
  */
 public class Jogador {
     private int id_jogador;
-    private int pos;
-           
+    private int pos;          
+}
+
+/*Construtor da classe Jogador com 2 parâmetros*/
+public Jogador(int id_jogador, int pos){
+   this.id_jogador = id_jogador;
+   this.pos = pos;
 }

@@ -22,6 +22,7 @@ public class Slot {
 	}
 	public String toString() {
 		String out="";
+		out+="Nome:"+this.nome+"\n";
 		out+="ID:"+this.ID+"\n";
 		return out;
 	}

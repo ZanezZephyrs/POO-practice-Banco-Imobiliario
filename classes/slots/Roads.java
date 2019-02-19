@@ -8,4 +8,10 @@ public class Roads extends Slot{
 		super(id, name);
 		this.dono=dono;
 	}
+	
+	public String toString() {
+		String out=super.toString();
+		out+="Dono:" + this.dono.getNome()+"\n";
+		return out;
+	}
 }

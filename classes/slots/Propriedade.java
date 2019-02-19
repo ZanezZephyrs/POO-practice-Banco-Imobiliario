@@ -34,10 +34,26 @@ public class Propriedade extends Slot{
 	public int GetN_Casas() {
 		return this.n_casas;
 	}
+	
+	private String string_vetor(int nums[]) {
+		String out="";
+		int i;
+		for(i=0;i<nums.length;i++) {
+			out+= nums[i];
+			out+=" ";
+		}
+		return out;
+	}
+	
 	public String toString() {/*adicionar resto das informações*/
 		String out=super.toString();
 		out+="Numero de casas:"+this.n_casas+"\n";
-		out+="aluguel atual"+ this.aluguel[this.n_casas]+"\n";
+		out+="aluguel atual:"+ this.aluguel[this.n_casas]+"\n";
+		out+="conjunto de aluguel:"+ string_vetor(this.aluguel)+"\n";
+		out+="Dono:" +this.dono.getNome()+"\n";
+		out+="Valor de compra:"+this.valor_compra+"\n";
+		out+="Valor de hipoteca:"+this.valor_hipoteca+"\n";
+		
 		return out;
 	}
 }

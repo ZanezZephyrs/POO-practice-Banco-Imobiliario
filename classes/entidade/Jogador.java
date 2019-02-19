@@ -4,28 +4,26 @@
  * and open the template in the editor.
  */
 package entidade;
+import slots.Slot;
 
 /**
  *
  * @author Giovana
  */
-public class Jogador {
-	private int ultimoID = 0;
-	private String nome;
+public class Jogador extends principal {
+	private int ultimoID;
 	private int id_jogador;
 	private int pos;
-}
+	private Slot posses[];
+
 
 /*Construtor da classe Jogador com 3 parâmetros*/
 public Jogador(String nome, int id_jogador, int pos) {
-	this.nome = nome;
-	this.id_jogador = ultimoID++;
+	super(nome);
+	this.id_jogador = id_jogador;
 	this.pos = 0;
 }
 
-public String getNome(){
-	return nome;
-}
 
 public int getID_jogador(){
 	return id_jogador;
@@ -37,4 +35,5 @@ public int getPos() {
 
 public void setPos(int pos) {
 	this.pos = pos;
+}
 }

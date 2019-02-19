@@ -10,12 +10,26 @@ package entidade;
  * @author Giovana
  */
 public class Jogador {
+    private String nome;
     private int id_jogador;
-    private int pos;          
+    private int pos;
 }
 
-/*Construtor da classe Jogador com 2 parâmetros*/
-public Jogador(int id_jogador, int pos){
-   this.id_jogador = id_jogador;
-   this.pos = pos;
+/*Construtor da classe Jogador com 3 parâmetros*/
+public Jogador(String nome, int id_jogador, int pos) {
+		this.nome = nome;
+		this.id_jogador = ultimoID++;
+		this.pos = 0;
+}
+public String getNome(){
+		return nome;
+}
+public int getID_jogador(){
+		return id_jogador;
+}
+public int getPos() {
+		return pos;
+}
+public void setPos(int pos) {
+		this.pos = pos;
 }

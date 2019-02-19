@@ -10,6 +10,7 @@ package entidade;
  * @author Giovana
  */
 public class Jogador {
+	private int ultimoID = 0;
 	private String nome;
 	private int id_jogador;
 	private int pos;

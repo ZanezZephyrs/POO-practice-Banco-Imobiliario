@@ -6,16 +6,14 @@ import entidade.Jogador;
 import mecanica.Motor;
 
 public class Servico extends Slot {
-        private principal dono;/*dono da propriedade, antes da compra por jogador, o banco Ã© dono*/
+        private principal dono;/*dono da propriedade (se não tiver dono é o banco)*/
 	private int custo_compra;
-        
-        
 
-    public Servico(int id, String name, principal dono, int custo) {
-        super(id, name);
-        this.dono=dono;
-	this.custo_compra=custo;
-    }
+    	public Servico(int id, String name, principal dono, int custo) {
+        	super(id, name);
+        	this.dono=dono;
+		this.custo_compra=custo;
+    	}
 
 	public String toString() {
 		String out=super.toString();
@@ -35,7 +33,7 @@ public class Servico extends Slot {
 				alvo.setN_servicos(alvo.getN_servicos()+1);
 				System.out.println("Compra efetuada!");
 			}else { 
-				System.out.println("Compra NÃ£o efetuada!");
+				System.out.println("Compra Não efetuada!");
 			}
 			
 	}else {/*propriedade pertence a algum jogador, deve-se verificar num de serviços, se for 2 é num dado X 10, se for 1 é num dado X 4*/
@@ -45,8 +43,8 @@ public class Servico extends Slot {
                         int num = dados_num[0]+dados_num[1];
                         if (mult == 2){
                             int deve_pagar= (10 * num);
-                            if(alvo_total<deve_pagar) {/*nÃ£o hÃ¡ dinheiro suficiente pra pagar*/
-				/*inserir opÃ§Ã£o de hipotecar*/
+                            if(alvo_total<deve_pagar) {/*não há dinheiro suficiente pra pagar*/
+				/*inserir opção de hipotecar*/
 				alvo.setDinheiro_total(-1);/*faliu*/
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+alvo_total);
                             }else {
@@ -56,8 +54,8 @@ public class Servico extends Slot {
                             }
                         }else{
                             int deve_pagar= (4 * num);
-                            if(alvo_total<deve_pagar) {/*nÃ£o hÃ¡ dinheiro suficiente pra pagar*/
-				/*inserir opÃ§Ã£o de hipotecar*/
+                            if(alvo_total<deve_pagar) {/*não há dinheiro suficiente pra pagar*/
+				/*inserir opção de hipotecar*/
 				alvo.setDinheiro_total(-1);/*faliu*/
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+alvo_total);
                             }else {

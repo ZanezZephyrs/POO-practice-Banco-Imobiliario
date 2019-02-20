@@ -32,7 +32,7 @@ public class Motor {
 		tabuleiro[9]=new Propriedade(9,cria_vetor(8,40,100,300,450,600),"Connecticut Avenue", 0, Banco, 120,60);
 		tabuleiro[10]=new Slot(10, "Prisão");
 		tabuleiro[11]=new Propriedade(11,cria_vetor(10,50,150,450,625,750),"St. Charles Place", 0, Banco, 140,70);
-		tabuleiro[12]=new Servico(12, "Electric Company");
+		tabuleiro[12]=new Servico(12, "Electric Company", Banco, 150);
 		tabuleiro[13]=new Propriedade(13,cria_vetor(10,50,150,450,625,750),"States Avenue", 0, Banco, 140,70);
 		tabuleiro[14]=new Propriedade(14,cria_vetor(12,60,180,500,700,900),"Virginia Avenue", 0, Banco, 160,80);
 		tabuleiro[15]=new Roads(15,"Pennsylvania Railroad", Banco,200);
@@ -48,7 +48,7 @@ public class Motor {
 		tabuleiro[25]=new Roads(25,"B & O Railroad", Banco,200);
 		tabuleiro[26]=new Propriedade(26,cria_vetor(22,110,330,800,975,1150),"Atlantic Avenue", 0, Banco, 260,130);
 		tabuleiro[27]=new Propriedade(27,cria_vetor(22,110,330,800,975,1150),"Ventnor Avenue", 0, Banco, 260,130);
-		tabuleiro[28]=new Servico(28, "Water Works");
+		tabuleiro[28]=new Servico(28, "Water Works", Banco, 150);
 		tabuleiro[29]=new Propriedade(29,cria_vetor(24,120,360,850,1025,1200),"Marvin Gardens", 0, Banco, 280,140);
 		tabuleiro[30]=new Slot(30, "Prisão");
 		tabuleiro[31]=new Propriedade(31,cria_vetor(26,130,390,900,1100,1275),"Pacific Avenue", 0, Banco, 300,150);

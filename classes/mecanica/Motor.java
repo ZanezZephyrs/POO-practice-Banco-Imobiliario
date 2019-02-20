@@ -59,7 +59,7 @@ public class Motor {
 		tabuleiro[36]=new Sorte(36, "Sorte");
 		tabuleiro[37]=new Propriedade(37,cria_vetor(35,175,500,1100,1300,1500),"Park Place", 0, Banco, 350,175);
 		tabuleiro[38]=new Imposto(38,"Luxury Tax",75);
-		tabuleiro[39]=new Propriedade(39,cria_vetor(50,200,600,1400,1700,2000),"	Boardwalk", 0, Banco, 400,200);
+		tabuleiro[39]=new Propriedade(39,cria_vetor(50,200,600,1400,1700,2000),"Boardwalk", 0, Banco, 400,200);
 		
 	}
 	

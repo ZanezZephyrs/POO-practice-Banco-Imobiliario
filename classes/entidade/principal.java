@@ -11,6 +11,7 @@ package entidade;
  */
 public class principal {
 	private String nome;
+	private int ID;
     private int dinheiro_total;
     private int notas_100;
     private int notas_50;
@@ -19,9 +20,13 @@ public class principal {
     private int notas_5;
     private int notas_1;
     
-    public principal(String name) {
+    public principal(String name, int id) {
     	this.nome=name;
+    	this.ID=id;
     	/*inserir o numero de notas padrão por jogador*/
+    }
+    public int getID() {
+    	return this.ID;
     }
     
     public int getDinheiro_total() {

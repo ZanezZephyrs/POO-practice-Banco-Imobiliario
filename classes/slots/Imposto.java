@@ -1,7 +1,8 @@
 package slots;
+import entidade.Jogador;
 
 public class Imposto extends Slot {
-	int valor_imposto;
+	private int valor_imposto;
 	
 	public Imposto(int id, String name, int val) {
 		super(id, name);
@@ -12,5 +13,10 @@ public class Imposto extends Slot {
 		String out=super.toString();
 		out+="Valor do Imposto:"+this.valor_imposto+"\n";
 		return out;
+	}
+	
+	public void executar(Jogador alvo) {
+		System.out.printf("Imposto, %d será descontado de seu dinheiro\n", this.valor_imposto);
+		alvo.setDinheiro_total(alvo.getDinheiro_total()-this.valor_imposto);
 	}
 }

@@ -14,6 +14,7 @@ public class Jogador extends principal {
 	private int pos;
 	private Slot posses[];
 	private int n_rodovias;
+        private int n_servicos;
 
 
 /*Construtor da classe Jogador com 3 parâmetros*/
@@ -21,6 +22,7 @@ public Jogador(String nome, int id_jogador, int pos) {
 	super(nome, id_jogador);
 	this.pos = 0;
 	this.n_rodovias=0;
+	this.n_servicos=0;
 }
 
 
@@ -37,6 +39,13 @@ public int getN_rodovias() {
 
 public void setN_rodovias(int num) {
 	this.n_rodovias = num;
+}
+public int getN_servicos() {
+	return this.n_servicos;
+}
+
+public void setN_servicos(int num) {
+	this.n_servicos = num;
 }
 
 }

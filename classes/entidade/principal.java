@@ -23,6 +23,7 @@ public class principal {
     public principal(String name, int id) {
     	this.nome=name;
     	this.ID=id;
+    	this.dinheiro_total=1500;
     	/*inserir o numero de notas padrão por jogador*/
     }
     public int getID() {

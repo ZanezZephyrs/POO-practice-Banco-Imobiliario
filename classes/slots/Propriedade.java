@@ -70,6 +70,7 @@ public class Propriedade extends Slot{
 				if(resp.equals("Y")) { /*jogador ira comprar, nesse momento não é verificado se possui dinheiro(implementação futura*/
 					alvo.setDinheiro_total(alvo.getDinheiro_total()-this.valor_compra);
 					this.dono=alvo;
+					alvo.add_posse(this);
 					System.out.println("Compra efetuada!");
 				}else if(resp.equals("N")) {
 					System.out.println("Compra não efetuada!");
@@ -77,6 +78,7 @@ public class Propriedade extends Slot{
 		}
 		else {/*propriedade pertence a algum jogador, deve-se pagar aluguel*/
 			int alvo_total=alvo.getDinheiro_total();
+			System.out.printf("Esta propriedade pertence a %s, aluguel %d\n", this.dono, this.aluguel);
 			if(alvo_total< this.aluguel[this.n_casas]) {/*não há dinheiro suficiente pra pagar*/
 				/*inserir opção de hipotecar*/
 				alvo.setDinheiro_total(-1);/*faliu*/
@@ -86,6 +88,7 @@ public class Propriedade extends Slot{
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+this.aluguel[this.n_casas]);
 				/*a linha abaixo decrescenta o dinheiro do pagante*/
 				alvo.setDinheiro_total(alvo_total-this.aluguel[this.n_casas]);
+				System.out.printf("%s pagou %d para %s\n", alvo.getNome(), this.aluguel,this.dono);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import slots.*;
 import entidade.Jogador;
 import entidade.principal;
 import java.util.Random;
+import java.util.Scanner;
 
 
 
@@ -11,10 +12,107 @@ public class Motor {
 	private int n_jogadores;
 	private Slot[] tabuleiro;
 	private int jogadores_restantes;
+	private Jogador[] jogadores;
 	
-	public Motor(int jogadores) {
-		this.n_jogadores=jogadores;
-		this.jogadores_restantes=jogadores;
+	public Motor(int num_players) {
+		Scanner scan=new Scanner(System.in);
+		Jogador player;
+		String nome;
+		this.jogadores=new Jogador[num_players];
+		this.n_jogadores=num_players;
+		this.jogadores_restantes=num_players;
+		for(int i=1;i<n_jogadores+1;i++) {
+			System.out.printf("Insira o nome do jogador %d:", i);
+			nome=scan.nextLine();
+			player=new Jogador(nome, i, 0);
+			this.jogadores[i-1]=player;
+			
+			
+		}
+	}
+	
+
+	
+	public void Realiza_jogo() {
+		int id_atual=0;
+		int num_jogada=0;
+		String resp;
+		Scanner scan=new Scanner(System.in);
+		while(true) {
+			if(id_atual>n_jogadores-1) {
+				id_atual=0;
+			}
+			System.out.printf("----------------------------------------------------------\n");
+			System.out.printf("Jogada de %s\n", this.jogadores[id_atual].getNome());
+			System.out.println("Oque gostaria de fazer? [jogar] [status]");
+			System.out.printf("escreva a opção:");
+			resp=scan.nextLine();
+			
+			if(resp.equalsIgnoreCase("status")) {
+				mostra_status(this.jogadores[id_atual]);
+				continue;
+				
+			}else if(resp.equalsIgnoreCase("Jogar")) {
+				Jogada(this.jogadores[id_atual]);
+				
+			}else if(resp.equalsIgnoreCase("tabuleiro")) {
+				imprimi_tabuleiro();
+			}
+			
+			id_atual++;
+			num_jogada++;
+		}
+	}
+	
+	public void mostra_status(Jogador player) {
+		System.out.printf("A situação de %s é:\n", player.getNome());
+		System.out.printf("Situado na posição %d – %s\n", player.getPos(), this.tabuleiro[player.getPos()].GetNome());
+		System.out.printf("Possui $%d\n", player.getDinheiro_total());
+		System.out.println("Títulos:");
+		try {
+		if(player.getPosses().length!=0) {
+			for(int i=0;i<player.getPosses().length;i++) {
+				if(player.getPosses()[i] instanceof Propriedade) {
+					Propriedade aux=(Propriedade) player.getPosses()[i];
+					System.out.printf("[%s] –  aluguel %d\n",player.getPosses()[i].GetNome(),aux.GetAluguel()[aux.GetN_Casas()]);
+				}
+		}
+		}
+		}catch(Exception e){
+			return;	
+		}
+	}
+	
+	public void Jogada(Jogador player) {
+		/*numeros iguais?
+		 * preso?*/
+		 
+		int dados[]=lanca_dados();
+		int mover=dados[0]+dados[1]+player.getPos();
+		System.out.printf("O resultado dos dados foi %d, %d\n", dados[0],dados[1]);
+		if(mover>39) {
+			mover_jogador(player, mover-40);
+		}else {
+			mover_jogador(player,mover);
+		}
+	}
+	
+	public int[] lanca_dados() {
+		Random rand=new Random();
+		int dado1=rand.nextInt(6)+1;
+		int dado2=rand.nextInt(6)+1;
+		int dados[]= {dado1,dado2};
+		return dados;
+	}
+	
+	
+	public void mover_jogador(Jogador player, int dest) {
+		if(dest<player.getPos()) {/*passou pelo meio*/
+			player.setDinheiro_total(player.getDinheiro_total()+200);
+		}
+		player.setPos(dest);
+		System.out.printf("Jogador parou em %d-%s\n", this.tabuleiro[player.getPos()].GetID(), this.tabuleiro[player.getPos()].GetNome());
+		this.tabuleiro[dest].executar(player);
 	}
 	
 	public void cria_tabuleiro1(principal Banco) {
@@ -63,41 +161,12 @@ public class Motor {
 		
 	}
 	
-	public void Jogada(Jogador player) {
-		/*numeros iguais?
-		 * preso?*/
-		 
-		int dados[]=lanca_dados();
-		int mover=dados[0]+dados[1]+player.getPos();
-		if(mover>39) {
-			mover_jogador(player, mover-40);
-		}else {
-			mover_jogador(player,mover);
-		}
-	}
-	
-	public int[] lanca_dados() {
-		Random rand=new Random();
-		int dado1=rand.nextInt(6)+1;
-		int dado2=rand.nextInt(6)+1;
-		int dados[]= {dado1,dado2};
-		return dados;
-	}
-	
 	public void imprimi_tabuleiro() {
 		int i;
 		for(i=0;i<tabuleiro.length;i++) {
 			System.out.print(tabuleiro[i].toString());
 			System.out.println("-----------------------------");
 		}
-	}
-	
-	public void mover_jogador(Jogador player, int dest) {
-		if(dest<player.getPos()) {/*passou pelo meio*/
-			player.setDinheiro_total(player.getDinheiro_total()+200);
-		}
-		player.setPos(dest);
-		this.tabuleiro[dest].executar(player);
 	}
 	
 	public int[] cria_vetor(int um, int dos, int tres, int quat, int cin, int seis) {

@@ -1,36 +1,38 @@
 package mecanica;
 import slots.*;
-
 import entidade.Jogador;
 import entidade.principal;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 
 public class Motor {
 	private int n_jogadores;
 	private Slot[] tabuleiro;
-	private int jogadores_restantes;
-	private Jogador[] jogadores;
+	private ArrayList<Jogador> jogadores;
 	
+	@SuppressWarnings("resource")
 	public Motor(int num_players) {
 		Scanner scan=new Scanner(System.in);
 		Jogador player;
 		String nome;
-		this.jogadores=new Jogador[num_players];
+		this.jogadores=new ArrayList<Jogador>();
 		this.n_jogadores=num_players;
-		this.jogadores_restantes=num_players;
 		for(int i=1;i<n_jogadores+1;i++) {
 			System.out.printf("Insira o nome do jogador %d:", i);
 			nome=scan.nextLine();
 			player=new Jogador(nome, i, 0);
-			this.jogadores[i-1]=player;
+			this.jogadores.add(player);
 			
 			
 		}
 	}
 	
+	public ArrayList<Jogador> getJogadores(){
+		return this.jogadores;
+	}
 
 	
 	public void Realiza_jogo() {
@@ -38,22 +40,22 @@ public class Motor {
 		int num_jogada=0;
 		String resp;
 		Scanner scan=new Scanner(System.in);
-		while(true) {
+		while(this.jogadores.size()>1) {
 			if(id_atual>n_jogadores-1) {
 				id_atual=0;
 			}
 			System.out.printf("----------------------------------------------------------\n");
-			System.out.printf("Jogada de %s\n", this.jogadores[id_atual].getNome());
+			System.out.printf("Jogada de %s\n", this.jogadores.get(id_atual).getNome());
 			System.out.println("Oque gostaria de fazer? [jogar] [status]");
 			System.out.printf("escreva a opção:");
 			resp=scan.nextLine();
 			
 			if(resp.equalsIgnoreCase("status")) {
-				mostra_status(this.jogadores[id_atual]);
+				mostra_status(this.jogadores.get(id_atual));
 				continue;
 				
 			}else if(resp.equalsIgnoreCase("Jogar")) {
-				Jogada(this.jogadores[id_atual]);
+				Jogada(this.jogadores.get(id_atual));
 				
 			}else if(resp.equalsIgnoreCase("tabuleiro")) {
 				imprimi_tabuleiro();
@@ -62,22 +64,33 @@ public class Motor {
 			id_atual++;
 			num_jogada++;
 		}
+		System.out.printf("FIM DE JOGO\n %s é o vencedor, Parabens!!", this.jogadores.get(0).getNome());
 	}
 	
 	public void mostra_status(Jogador player) {
+		Propriedade aux;
+		int mult;
 		System.out.printf("A situação de %s é:\n", player.getNome());
 		System.out.printf("Situado na posição %d – %s\n", player.getPos(), this.tabuleiro[player.getPos()].GetNome());
 		System.out.printf("Possui $%d\n", player.getDinheiro_total());
 		System.out.println("Títulos:");
 		try {
-		if(player.getPosses().length!=0) {
-			for(int i=0;i<player.getPosses().length;i++) {
-				if(player.getPosses()[i] instanceof Propriedade) {
-					Propriedade aux=(Propriedade) player.getPosses()[i];
-					System.out.printf("[%s] –  aluguel %d\n",player.getPosses()[i].GetNome(),aux.GetAluguel()[aux.GetN_Casas()]);
+			for(Slot iterator:player.getPosses()) {
+				if(iterator instanceof Propriedade) {
+					aux=(Propriedade) iterator;
+					System.out.printf("[%s] –  Propriedade, aluguel %d\n",iterator.GetNome(),aux.GetAluguel()[aux.GetN_Casas()]);
+				}else if(iterator instanceof Roads) {
+					System.out.printf("[%s] - Ferrovia, corrida %d", iterator.GetNome(), player.getN_rodovias()*25);
+				}else if(iterator instanceof Servico) {
+					if(player.getN_servicos()==2) {
+						mult=10;
+					}else {
+						mult=4;
+					}
+					System.out.printf("[%s] - Serviço, multiplicador ", iterator.GetNome(), mult);
 				}
 		}
-		}
+		
 		}catch(Exception e){
 			return;	
 		}
@@ -112,7 +125,7 @@ public class Motor {
 		}
 		player.setPos(dest);
 		System.out.printf("Jogador parou em %d-%s\n", this.tabuleiro[player.getPos()].GetID(), this.tabuleiro[player.getPos()].GetNome());
-		this.tabuleiro[dest].executar(player);
+		this.tabuleiro[dest].executar(player, this);
 	}
 	
 	public void cria_tabuleiro1(principal Banco) {

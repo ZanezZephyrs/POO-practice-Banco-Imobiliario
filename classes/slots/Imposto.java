@@ -1,5 +1,6 @@
 package slots;
 import entidade.Jogador;
+import mecanica.Motor;
 
 public class Imposto extends Slot {
 	private int valor_imposto;
@@ -15,8 +16,13 @@ public class Imposto extends Slot {
 		return out;
 	}
 	
-	public void executar(Jogador alvo) {
+	public void executar(Jogador alvo, Motor motor) {
 		System.out.printf("Imposto, %d será descontado de seu dinheiro\n", this.valor_imposto);
 		alvo.setDinheiro_total(alvo.getDinheiro_total()-this.valor_imposto);
+		if(alvo.getDinheiro_total()<0) {
+			motor.getJogadores().remove(alvo);
+			System.out.printf("Jogador %s, não possui dinheiro para pagar o imposto\n "
+					+ "Jogador %s Faliu e foi removido do jogo\n", alvo.getNome(),alvo.getNome());
+		}
 	}
 }

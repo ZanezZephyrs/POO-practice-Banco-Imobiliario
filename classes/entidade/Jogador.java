@@ -6,14 +6,14 @@
 package entidade;
 import slots.Slot;
 import java.util.Vector;
-
+import java.util.ArrayList;
 /**
  *
  * @author Giovana
  */
 public class Jogador extends principal {
 	private int pos;
-	private Slot posses[];
+	private ArrayList<Slot> posses;
 	private int total_posses;/*usado de index*/
 	private int n_rodovias;
     private int n_servicos;
@@ -26,7 +26,7 @@ public Jogador(String nome, int id_jogador, int pos) {
 	this.n_rodovias=0;
 	this.n_servicos=0;
 	this.total_posses=0;
-	this.posses=new Slot[30];/*revisar a quantidade/outras opcoes de armazenamento*/
+	this.posses=new ArrayList<Slot>();/*revisar a quantidade/outras opcoes de armazenamento*/
 }
 
 
@@ -41,12 +41,9 @@ public int getN_rodovias() {
 	return this.n_rodovias;
 }
 
-public void add_posse(Slot novo) {
-	this.posses[this.total_posses]=novo;
-	this.total_posses++;
-}
 
-public Slot[] getPosses() {
+
+public ArrayList<Slot> getPosses() {
 	return this.posses;
 }
 

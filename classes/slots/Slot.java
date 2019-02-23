@@ -1,5 +1,6 @@
 package slots;
 import entidade.Jogador;
+import mecanica.Motor;
 
 public class Slot {
 	private int ID;/*id da posição(1~40)*/
@@ -27,7 +28,7 @@ public class Slot {
 		out+="ID:"+this.ID+"\n";
 		return out;
 	}
-	public void executar(Jogador player) {
+	public void executar(Jogador player, Motor motor) {
 		/*overwrite*/
 	}
 }

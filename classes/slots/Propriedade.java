@@ -2,6 +2,7 @@ package slots;
 import entidade.principal;
 import entidade.Jogador;
 import java.util.Scanner;
+import mecanica.Motor;
 
 public class Propriedade extends Slot{
 	
@@ -59,18 +60,23 @@ public class Propriedade extends Slot{
 		return out;
 	}
 	
-	public void executar(Jogador alvo) {
+	public void executar(Jogador alvo, Motor motor) {
 		Scanner scan=new Scanner(System.in);
 		if (this.dono.getID()==0) { /*proprieda pertence ao Banco, disponivel para compra*/
 				/*fala com o jogador*/
-				System.out.println("Propriedade disponivel para compra, Deseja comprar?(Y/N)");
+				System.out.printf("Propriedade disponivel para compra, valor:%d Deseja comprar?(Y/N)\n",this.valor_compra);
+				if(alvo.getDinheiro_total()< this.valor_compra) {/*sem dinheiro pra comprar*/
+					System.out.println("Infelizmente você não possui dinheiro suficiente para comprar a propriedade!");
+					return;
+				}
 				System.out.print("Resposta:");
 				/*le resposta*/
 				String resp=scan.nextLine();
-				if(resp.equals("Y")) { /*jogador ira comprar, nesse momento não é verificado se possui dinheiro(implementação futura*/
+				if(resp.equals("Y")) { 
+					
 					alvo.setDinheiro_total(alvo.getDinheiro_total()-this.valor_compra);
 					this.dono=alvo;
-					alvo.add_posse(this);
+					alvo.getPosses().add(this);
 					System.out.println("Compra efetuada!");
 				}else if(resp.equals("N")) {
 					System.out.println("Compra não efetuada!");
@@ -78,10 +84,13 @@ public class Propriedade extends Slot{
 		}
 		else {/*propriedade pertence a algum jogador, deve-se pagar aluguel*/
 			int alvo_total=alvo.getDinheiro_total();
-			System.out.printf("Esta propriedade pertence a %s, aluguel %d\n", this.dono, this.aluguel);
+			System.out.printf("Esta propriedade pertence a %s, aluguel %d\n", this.dono.getNome(), this.aluguel[this.n_casas]);
 			if(alvo_total< this.aluguel[this.n_casas]) {/*não há dinheiro suficiente pra pagar*/
 				/*inserir opção de hipotecar*/
+				System.out.printf("O Jogador %s não possui dinheiro para pagar\n", alvo.getNome());
 				alvo.setDinheiro_total(-1);/*faliu*/
+				motor.getJogadores().remove(alvo);
+				System.out.printf("O Jogador %s Faliu e foi removido do jogo\n", alvo.getNome());
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+alvo_total);
 			}
 			else {

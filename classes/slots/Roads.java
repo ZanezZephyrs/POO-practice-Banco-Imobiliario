@@ -1,5 +1,6 @@
 package slots;
 import entidade.principal;
+import mecanica.Motor;
 import slots.Slot;
 import java.util.Scanner;
 import entidade.Jogador;
@@ -21,11 +22,15 @@ public class Roads extends Slot{
 		return out;
 	}
 	
-	public void executar(Jogador alvo) {
+	public void executar(Jogador alvo, Motor motor) {
 		Scanner scan=new Scanner(System.in);
 		if (this.dono.getID()==0) { /*proprieda pertence ao Banco, disponivel para compra*/
 			/*fala com o jogador*/
 			System.out.println("Propriedade disponivel para compra, Deseja comprar?(Y/N)");
+			if(alvo.getDinheiro_total()< this.custo_compra) {/*sem dinheiro pra comprar*/
+				System.out.println("Infelizmente você não possui dinheiro suficiente para comprar a propriedade!");
+				return;
+			}
 			System.out.print("Resposta:");
 			/*le resposta*/
 			String resp=scan.nextLine();
@@ -44,7 +49,10 @@ public class Roads extends Slot{
 			int deve_pagar=((Jogador) this.dono).getN_rodovias()*25;
 			if(alvo_total<deve_pagar) {/*não há dinheiro suficiente pra pagar*/
 				/*inserir opção de hipotecar*/
+				System.out.printf("O Jogador %s não possui dinheiro para pagar\n", alvo.getNome());
+				System.out.printf("O Jogador %s Faliu e foi removido do jogo\n", alvo.getNome());
 				alvo.setDinheiro_total(-1);/*faliu*/
+				motor.getJogadores().remove(alvo);
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+alvo_total);
 			}
 			else {

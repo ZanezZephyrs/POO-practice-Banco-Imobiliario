@@ -31,6 +31,7 @@ public class Roads extends Slot{
 				System.out.println("Infelizmente você não possui dinheiro suficiente para comprar a propriedade!");
 				return;
 			}
+			
 			System.out.print("Resposta:");
 			/*le resposta*/
 			String resp=scan.nextLine();
@@ -39,6 +40,7 @@ public class Roads extends Slot{
 				this.dono=alvo;
 				alvo.setN_rodovias(alvo.getN_rodovias()+1);
 				System.out.println("Compra efetuada!");
+				
 			}else { 
 				System.out.println("Compra Não efetuada!");
 			}
@@ -59,6 +61,7 @@ public class Roads extends Slot{
 				this.dono.setDinheiro_total(this.dono.getDinheiro_total()+deve_pagar);
 				/*a linha abaixo decrescenta o dinheiro do pagante*/
 				alvo.setDinheiro_total(alvo_total-deve_pagar);
+				System.out.printf("%s pagou %d para %s\n", alvo.getNome(), deve_pagar,this.dono.getNome());
 			}
 		}
 	}

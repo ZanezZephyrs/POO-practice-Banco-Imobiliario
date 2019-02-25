@@ -72,6 +72,7 @@ public class Servico extends Slot {
 								this.dono.setDinheiro_total(this.dono.getDinheiro_total()+deve_pagar);
 								/*a linha abaixo decrescenta o dinheiro do pagante*/
 								alvo.setDinheiro_total(alvo_total-deve_pagar);
+								System.out.printf("%s pagou %d para %s\n", alvo.getNome(), deve_pagar, this.dono.getNome());
                             }
                         }
                 }
